@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nhập mã đơn hàng</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #f7f7f7; padding: 40px;">
+
+  <div style="max-width: 400px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; color: #2a4d69;">🔍 Demo thanh toán </h2>
+
+    <form action="/submit" method="post" style="margin-top: 20px;">
+        <label for="orderCode" style="display: block; margin-bottom: 8px; font-weight: bold;">Nhập ID đơn hàng:</label>
+      <input 
+        type="text" 
+        id="orderCode" 
+        name="maDH" 
+        placeholder="VD:DH08438"
+        required 
+        style="width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 15px;"
+      >
+      <label for="orderCode" style="display: block; margin-bottom: 8px; font-weight: bold;">Nhập số tiền cần chuyển khoản:</label>
+      <input 
+        type="text" 
+        id="orderCode" 
+        name="soTien" 
+        placeholder="VD: 30000"
+        required 
+        style="width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 15px;"
+      >
+
+      <button 
+        type="submit" 
+        style="width: 100%; padding: 10px; background-color: #2a4d69; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;"
+      >
+        Xác nhận
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

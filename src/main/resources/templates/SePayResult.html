@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuyển khoản thủ công</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #f9f9f9; padding: 40px;">
+  <div style="max-width: 800px; margin: auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;">
+    
+    <!-- Cột trái: QR code -->
+    <div style="flex: 1; min-width: 250px; text-align: center;">
+      <img th:src="'https://qr.sepay.vn/img?acc=0862492594&bank=MB&amount=' + ${soTien} + '&des=' + ${maDH} + '&template=compact&download=false'" 
+           alt="QR Code" 
+           style="width: 100%; max-width: 250px; border-radius: 8px;">
+      <p style="margin-top: 10px; font-size: 14px; color: #555;">Quét mã để chuyển khoản</p>
+    </div>
+
+    <!-- Cột phải: Thông tin -->
+    <div style="flex: 2; min-width: 300px;">
+      <h2 style="color: #2a4d69; margin-top: 0;">🔁 Chuyển khoản thủ công</h2>
+      
+      <p><strong>Ngân hàng:</strong> MBBank</p>
+      <p><strong>Chủ tài khoản:</strong> Ngô Quốc Phú</p>
+      <p><strong>Số tài khoản:</strong> <span style="color: #2a4d69; font-weight: bold;">0862492594</span></p>
+      <p><strong>Số tiền:</strong> <span style="color: #c0392b; font-weight: bold;" th:text="${soTien} + 'đ'">0đ</span></p>
+      <p><strong>Nội dung chuyển khoản:</strong> 
+         <span style="background: #fef3c7; padding: 4px 8px; border-radius: 4px; font-weight: bold;" th:text="${maDH}">DHXXXX</span>
+      </p>
+      <p style="color: #d35400; margin-top: 15px;">
+        <strong>⚠️ Lưu ý:</strong> Vui lòng giữ nguyên nội dung để hệ thống tự động xác nhận.
+      </p>
+      
+      <!-- Trạng thái -->
+      <div style="margin-top: 20px; padding: 10px 15px; background: #fff3cd; border-left: 6px solid #ffeeba; border-radius: 6px; color: #856404;">
+	    <strong>Trạng thái:</strong>
+	    <span th:if="${status == false}">Đang chờ thanh toán ⏳</span>
+	    <span th:if="${status == true}">Đã thanh toán 👌</span>
+	  </div>
+    </div>
+  </div>
+</body>
+</html>
