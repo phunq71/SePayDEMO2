@@ -22,7 +22,6 @@ public class SubmitController {
 		System.out.println(soTien);
 		model.addAttribute("maDH", maDH);
 		model.addAttribute("soTien", soTien);
-		model.addAttribute("status", false);
 		
 		Order temp = new Order(maDH, false);
 		dao.save(temp);
