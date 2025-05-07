@@ -36,5 +36,12 @@ public class CallpackController {
 		return "SePayResult";
 
 	}
+
+	@GetMapping("/result")
+	@ResponseBody
+	public boolean checkPaymentStatus(@RequestParam("maDH") String maDH) {
+	    Optional<Order> order = dao.findById(maDH);
+	    return order.map(Order::isStatusTT).orElse(false);
+	}
 		
 }
