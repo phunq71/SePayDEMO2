@@ -24,9 +24,14 @@ public class CallpackController {
 	
 	@PostMapping("/callpack")
 	public Boolean postForSePay(@RequestBody TransactionDTO temp, Model model) {
-		System.out.println("HELOO________________________________________________");
-		System.out.println(temp.toString());
-		Optional<Order> order = dao.findById(temp.getCode());
+
+		String fullContent = temp.getContent(); // "DH907 FT2512..."
+	        System.out.println("Full content: " + fullContent);
+	
+	        // Tách lấy mã đơn hàng từ đầu chuỗi
+	        String[] parts = fullContent.split(" ");
+	        String maDH = parts.length > 0 ? parts[0] : null;
+		Optional<Order> order = dao.findById(maDH);
 		if (order.isPresent()) {
 		    order.get().setStatusTT(true); // Cập nhật trạng thái thành true (Đã thanh toán)
 		    dao.save(order.get());
