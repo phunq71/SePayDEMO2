@@ -23,19 +23,17 @@ public class CallpackController {
 	OrderDAO dao;
 	
 	@PostMapping("/callpack")
-	public String postForSePay(@RequestBody TransactionDTO temp, Model model) {
+	public Boolean postForSePay(@RequestBody TransactionDTO temp, Model model) {
 		System.out.println("HELOO________________________________________________");
 		System.out.println(temp.toString());
 		Optional<Order> order = dao.findById(temp.getContent());
 		if (order.isPresent()) {
 		    order.get().setStatusTT(true); // Cập nhật trạng thái thành true (Đã thanh toán)
-		    
+		    dao.save(order.get());
 		    boolean status = order.get().isStatusTT(); // Lấy giá trị boolean
-		    model.addAttribute("maDH", temp.getContent());
-			model.addAttribute("soTien", temp.getAccountNumber());
-		    model.addAttribute("status", status); // Gửi xuống view
+		    
 		}
-		return "SePayResult";
+		return true;
 
 	}
 
