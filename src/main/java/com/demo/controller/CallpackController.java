@@ -26,7 +26,7 @@ public class CallpackController {
 	public Boolean postForSePay(@RequestBody TransactionDTO temp, Model model) {
 		System.out.println("HELOO________________________________________________");
 		System.out.println(temp.toString());
-		Optional<Order> order = dao.findById(temp.getContent());
+		Optional<Order> order = dao.findById(temp.getCode());
 		if (order.isPresent()) {
 		    order.get().setStatusTT(true); // Cập nhật trạng thái thành true (Đã thanh toán)
 		    dao.save(order.get());
