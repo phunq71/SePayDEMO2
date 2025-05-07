@@ -25,19 +25,42 @@
       <p><strong>Số tài khoản:</strong> <span style="color: #2a4d69; font-weight: bold;">0862492594</span></p>
       <p><strong>Số tiền:</strong> <span style="color: #c0392b; font-weight: bold;" th:text="${soTien} + 'đ'">0đ</span></p>
       <p><strong>Nội dung chuyển khoản:</strong> 
-         <span style="background: #fef3c7; padding: 4px 8px; border-radius: 4px; font-weight: bold;" th:text="${maDH}">DHXXXX</span>
+         <span id="maDH" style="background: #fef3c7; padding: 4px 8px; border-radius: 4px; font-weight: bold;" th:text="${maDH}">DHXXXX</span>
       </p>
       <p style="color: #d35400; margin-top: 15px;">
         <strong>⚠️ Lưu ý:</strong> Vui lòng giữ nguyên nội dung để hệ thống tự động xác nhận.
       </p>
       
       <!-- Trạng thái -->
-      <div style="margin-top: 20px; padding: 10px 15px; background: #fff3cd; border-left: 6px solid #ffeeba; border-radius: 6px; color: #856404;">
-	    <strong>Trạng thái:</strong>
-	    <span th:if="${status == false}">Đang chờ thanh toán ⏳</span>
-	    <span th:if="${status == true}">Đã thanh toán 👌</span>
-	  </div>
+		<div style="margin-top: 20px; padding: 10px 15px; background: #fff3cd; border-left: 6px solid #ffeeba; border-radius: 6px; color: #856404;">
+		  <strong>Trạng thái:</strong>
+		  <span id="statusText">
+		    Đang chờ thanh toán ⏳
+		  </span>
+		</div>
     </div>
   </div>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const maDH = document.getElementById("maDH").textContent.trim();
+
+    const intervalId = setInterval(() => {
+        fetch(`/result?maDH=${encodeURIComponent(maDH)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data === true) {
+                    clearInterval(intervalId); // Dừng gọi khi đã thanh toán
+                    alert("Thanh toán thành công!"); // Hoặc redirect, cập nhật giao diện,...
+                    // window.location.href = "/payment-success"; // ví dụ chuyển trang
+                } else {
+                    console.log("Chưa thanh toán...");
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi gọi API:", error);
+            });
+    }, 2000); // Gọi mỗi 2 giây
+});
+</script>
 </body>
 </html>
