@@ -43,6 +43,7 @@
   <script>
 document.addEventListener("DOMContentLoaded", function () {
     const maDH = document.getElementById("maDH").textContent.trim();
+    const statusText = document.getElementById("statusText");
 
     const intervalId = setInterval(() => {
         fetch(`/result?maDH=${encodeURIComponent(maDH)}`)
@@ -50,8 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 if (data === true) {
                     clearInterval(intervalId); // Dừng gọi khi đã thanh toán
-                    alert("Thanh toán thành công!"); // Hoặc redirect, cập nhật giao diện,...
-                    // window.location.href = "/payment-success"; // ví dụ chuyển trang
+                    statusText.textContent = "Đã thanh toán 👌";
+                    statusText.style.color = "#155724"; // xanh đậm
+                    statusText.parentElement.style.background = "#d4edda"; // nền xanh nhạt
+                    statusText.parentElement.style.borderLeft = "6px solid #28a745"; // viền xanh
+                    // Có thể redirect hoặc thao tác thêm tại đây
                 } else {
                     console.log("Chưa thanh toán...");
                 }
@@ -59,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => {
                 console.error("Lỗi khi gọi API:", error);
             });
-    }, 2000); // Gọi mỗi 2 giây
+    }, 2000);
 });
 </script>
 </body>
